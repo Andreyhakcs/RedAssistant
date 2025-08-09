@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.*
+# Build
+/dist/
+/build/
+*.spec
+# Temp
+/tmp_audio/
+*.mp3
+*.wav
+*.zip

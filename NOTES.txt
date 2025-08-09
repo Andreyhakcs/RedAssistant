@@ -1,0 +1,8 @@
+Что исправлено
+1) Ошибка 'QPixmap.save called with wrong argument types' — теперь используется QBuffer/QByteArray (PySide6 требует QIODevice), а не io.BytesIO.
+2) Чтобы убрать 'QThread: Destroyed while thread is still running':
+   - не запускай второй Vision, если первый ещё работает: проверяй self._vision and self._vision.isRunning()
+   - при закрытии окна дождись потоков: в MainWindow.closeEvent() вызови .wait() для self._vision/self._stt/self._llm.
+
+Минимально обязательно заменить файл:
+  red2/core/vision.py

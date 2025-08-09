@@ -1,0 +1,14 @@
+
+Установка апгрейда неон‑интерфейса (фикс):
+1) Распакуй архив в КОРЕНЬ проекта с заменой.
+   Важно, чтобы появились файлы:
+   - red2/ui/__init__.py    (пустой, но обязателен!)
+   - red2/ui/neon_widgets.py
+   - red2/ui/style.qss
+2) Убедись, что в red2/app.py импорт такой:
+   from .ui.neon_widgets import NeonSideBar
+3) Удали кеши при необходимости:
+   - папки __pycache__ внутри red2/ и red2/ui/
+4) Запусти:  py -m red2
+
+Если снова ошибка 'No module named red2.ui.neon_widgets' — проверь, что существует файл red2/ui/__init__.py.

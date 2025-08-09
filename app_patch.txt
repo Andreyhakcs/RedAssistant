@@ -1,0 +1,28 @@
+# PATCH for red2/app.py (вклей или замени соответствующие участки)
+
+# 1) Добавь в класс MainWindow вспомогательную функцию speak:
+def _speak(self, text: str):
+    """Без наложений: стопнем прошлую озвучку и произнесём новую."""
+    try:
+        self.tts.stop()
+    except Exception:
+        pass
+    if hasattr(self,'anim') and self.anim:
+        self.anim.set_state("speaking")
+    self.tts.speak(text, on_done=lambda: (hasattr(self,'anim') and self.anim and self.anim.set_state('idle'),
+                                          self.state_lbl.setText("State: Idle  |  Ctrl+3 = Vision+PTT")))
+
+# 2) В _on_vision_ready перед озвучкой вызови self.tts.stop() И используй _speak():
+def _on_vision_ready(self, desc, ocr, title):
+    self.last_screen_desc = desc or ""
+    self.last_screen_ocr = (ocr or "")[:2000]
+    self.last_screen_title = title or ""
+    if self.last_screen_desc:
+        self._speak(self.last_screen_desc)
+        self._append("assistant", f"Экран: {self.last_screen_desc}")
+
+# 3) В _on_llm_reply тоже используй _speak(), чтобы ответ не накладывался на описание экрана:
+def _on_llm_reply(self, content):
+    self.messages.append({"role":"assistant","content": content})
+    self._append("assistant", content)
+    self._speak(content)

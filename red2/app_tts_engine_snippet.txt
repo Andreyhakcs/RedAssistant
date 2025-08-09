@@ -1,0 +1,26 @@
+
+# === app.py helper ===
+def _make_tts_from_prefs(prefs):
+    rate = int(prefs.get("tts_rate",175))
+    vol  = float(prefs.get("tts_volume",0.9))
+    voice = prefs.get("tts_voice","") or None
+    engine = (prefs.get("tts_engine","edge") or "edge").lower()
+    if engine == "edge":
+        try:
+            from .core.tts_edge import TTS as EdgeTTS
+            return EdgeTTS(rate=rate, volume=vol, voice=voice or "ru-RU-SvetlanaNeural")
+        except Exception as e:
+            print("Edge TTS unavailable:", e, "-> fallback to system TTS")
+    from .core import tts
+    try:
+        return tts.TTS(rate=rate, volume=vol, voice=voice)
+    except TypeError:
+        t = tts.TTS(rate=rate, volume=vol)
+        try:
+            if voice and hasattr(t, "set_voice"): t.set_voice(voice)
+        except Exception: pass
+        return t
+
+# Замени создание self.tts в app.py на:
+#   self.tts = _make_tts_from_prefs(self.prefs)
+# и в apply_prefs(...) пересоздавай так же.

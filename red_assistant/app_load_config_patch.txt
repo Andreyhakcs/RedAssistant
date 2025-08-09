@@ -1,0 +1,13 @@
+# PATCHED load_config only; drop into red_assistant/app.py replacing the old load_config()
+def load_config():
+    from pathlib import Path
+    base = Path(__file__).parent
+    # Try config.json, then config (no extension)
+    for name in ("config.json", "config"):
+        p = base / name
+        if p.exists():
+            try:
+                return json.loads(p.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+    return {"model":"gpt-4o-mini","system_prompt":"You are Red."}

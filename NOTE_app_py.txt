@@ -1,0 +1,7 @@
+
+# Если у тебя уже есть изменённый red2/app.py — оставляй его.
+# Важно: в app.py должен быть импорт:
+#    from .ui.neon_widgets import NeonSideBar
+# и в __init__ окна:
+#    self.neon = NeonSideBar()
+#    h.addWidget(self.neon) слева от основного контейнера.

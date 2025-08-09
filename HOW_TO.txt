@@ -1,0 +1,3 @@
+Просто распакуй в корень проекта с заменой.
+Вверху red2/splash.py можно менять:
+ FULLSCREEN=True/False, DURATION_MS, ASPECT_COVER (False=всё видео, True=обрезка под экран), WINDOW_SIZE.

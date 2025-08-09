@@ -1,0 +1,14 @@
+/* Red Neon QSS */
+* { color: #E6E6E6; font-family: Segoe UI, Inter, Arial; }
+QWidget { background-color:#0A0A0A; }
+QFrame#Panel { background:#16181A; border:1px solid #1E1F22; border-radius:16px; }
+QLineEdit, QTextEdit {
+  background:#16181A; border:2px solid #FF0033; border-radius:16px; padding:8px 12px; color:#E6E6E6;
+}
+QPushButton {
+  background:#FF0033; color:#ffffff; border:none; border-radius:12px; padding:8px 14px;
+}
+QPushButton:hover { background:#FF1A8A; }
+QListWidget { background:#101114; border:1px solid #1E1F22; border-radius:12px; }
+QScrollBar:vertical { background:#101114; width:10px; }
+QScrollBar::handle:vertical { background:#FF0033; border-radius:4px; }
